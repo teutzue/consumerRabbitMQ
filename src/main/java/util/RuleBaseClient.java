@@ -1,4 +1,4 @@
-package client;
+package util;
 
 import java.rmi.RemoteException;
 import java.text.RuleBasedCollator;

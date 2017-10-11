@@ -1,5 +1,6 @@
-package client;
+package loanRequest;
 
+import com.google.gson.Gson;
 import com.rabbitmq.client.ConnectionFactory;
 
 public class LoanRequest 
@@ -40,6 +41,12 @@ public class LoanRequest
 	public String toString() {
 		// TODO Auto-generated method stub
 		return "Ssn: " + ssn + "; LoanAmount: " + loanAmount + "; Loan Durataion: " + loanDuration + "; Credit Score: " + creditScore;
+	}
+	
+	public String toJSON() {
+		// TODO Auto-generated method stub
+		Gson g = new Gson();
+		return g.toJson(this);
 	}
 	
 }
