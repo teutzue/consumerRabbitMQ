@@ -7,14 +7,13 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 
-public class LoanRequestSender 
-{
-
-	private final static String QUEUE_NAME = "loan_request";
-	private final static String HOST = "localhost";
-	private final static String LOAN_REQUEST = "";
+public class CreditScoreSender {
 	
-	public void sendLoanRequest(LoanRequest lr) throws IOException, TimeoutException
+	private final static String QUEUE_NAME = "credit_score";
+	private final static String HOST = "localhost";
+	private final static String CREDIT_SCORE = "";
+	
+	public void sendCreditScore(String creditScore) throws IOException, TimeoutException
 	{
 		ConnectionFactory factory = new ConnectionFactory();
 		factory.setHost(HOST);
@@ -23,14 +22,14 @@ public class LoanRequestSender
 		Channel channel = connection.createChannel();
 		channel.queueDeclare(QUEUE_NAME, false, false, false, null);
 		
-		String message = lr.toString();
+		String message = creditScore;
 		
 		channel.basicPublish("", QUEUE_NAME, null, message.getBytes("UTF-8"));
 		
-        System.out.println(" [x] Sent '" + message + "'");
+        System.out.println(" [x] Sent credit score: '" + message + "'");
         
         channel.close();
         connection.close();
 	}
-	
+
 }

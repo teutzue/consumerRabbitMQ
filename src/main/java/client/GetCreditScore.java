@@ -9,8 +9,9 @@ public class GetCreditScore {
 	
 	private final static String QUEUE_NAME = "loan_request";
 	private final static String HOST = "localhost";
+	private static String LOAN_REQUEST = "";
 	
-	public static void main(String[] args) throws IOException, TimeoutException
+	public String receiveLoanRequest() throws IOException, TimeoutException
 	{
 		ConnectionFactory factory = new ConnectionFactory();
 		factory.setHost(HOST);
@@ -26,10 +27,12 @@ public class GetCreditScore {
 		      public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body)
 		          throws IOException {
 		        String loanRequest = new String(body, "UTF-8");
+		        LOAN_REQUEST = loanRequest;
 		        System.out.println(" [x] Received Loan Request: " + loanRequest + "'");
 		      }
 		    };
 		    channel.basicConsume(QUEUE_NAME, true, consumer);
+		    return LOAN_REQUEST;
 	}
 
 }
